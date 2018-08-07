@@ -1,0 +1,36 @@
+
+<div class="menu-container">
+<h2>Add New Employee</h4>
+</div>
+<div class="menu-add">
+<label>First Name</label>
+<input id="firstNameField" class="employee-field" name="firstName" placeholder="e.g. Manoj" />
+<label>Last Name</label>
+<input id="lastNameField" class="employee-field" name="lastName" placeholder="e.g. Baheti" />
+<input class="button-primary" type="submit" value="Save Employee" onClick="submitForm()">
+</div>
+
+<script type="text/javascript">
+function submitForm() {
+// 1
+var firstName = document.getElementById("firstNameField").value;
+var lastName = document.getElementById("lastNameField").value;
+if (firstName == "" || lastName == "") {
+// 2
+alert("Both fields must contain text!");
+return;
+}
+var xhr = new XMLHttpRequest();
+xhr.open("POST", "/employee");
+// 3
+xhr.setRequestHeader("Content-Type", "application/json");
+xhr.onreadystatechange = function() {
+if (xhr.readyState == XMLHttpRequest.DONE) {
+// 5
+location.reload();
+}
+}
+// 4
+xhr.send(JSON.stringify({ "firstName": firstName, "lastName": lastName }));
+}
+</script>
